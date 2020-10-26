@@ -9,6 +9,8 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         recordList: [],
+        createRecordError: null,
+        createTagError: null,
         tagList: [],
         currentTag: undefined
     } as RootState,
@@ -50,8 +52,8 @@ const store = new Vuex.Store({
         fetchRecords(state) {
             state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
         },
-        createRecord(state, record) {
-            const record2: RecordItem = clone(record);
+        createRecord(state, record: RecordItem) {
+            const record2 = clone(record);
             record2.createdAt = new Date().toISOString();
             state.recordList.push(record2);
             store.commit('saveRecords');
@@ -62,16 +64,48 @@ const store = new Vuex.Store({
         },
         fetchTags(state) {
             state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+            if (!state.tagList || state.tagList.length === 0) {
+                store.commit('createTag', '😯 一般');
+                store.commit('createTag', '🍜 餐饮');
+                store.commit('createTag', '🛒 购物');
+                store.commit('createTag', '👔 服饰');
+                store.commit('createTag', '🚗 交通');
+                store.commit('createTag', '🎢 娱乐');
+                store.commit('createTag', '👬 社交');
+                store.commit('createTag', '🛋️ 居家');
+                store.commit('createTag', '☎️ 通讯️');
+                store.commit('createTag', '🍪 零食️');
+                store.commit('createTag', '💆 美容️');
+                store.commit('createTag', '⚽️ 运动');
+                store.commit('createTag', '✈️ 旅行');
+                store.commit('createTag', '📷️ 数码');
+                store.commit('createTag', '✏️ 学习');
+                store.commit('createTag', '🏥 医疗');
+                store.commit('createTag', '📚 书籍');
+                store.commit('createTag', '🐱 宠物');
+                store.commit('createTag', '📎 办公');
+                store.commit('createTag', '🏠 住房');
+                store.commit('createTag', '🔧 维修');
+                store.commit('createTag', '🧒 孩子');
+                store.commit('createTag', '👴 长辈');
+                store.commit('createTag', '🎁 礼物');
+                store.commit('createTag', '🧧 礼金');
+                store.commit('createTag', '💳 还钱');
+                store.commit('createTag', '❤️ 捐赠');
+                store.commit('createTag', '💰 理财');
+            }
+
         },
         createTag(state, name: string) {
+            state.createTagError = null;
             const names = state.tagList.map(item => item.name);
             if (names.indexOf(name) >= 0) {
-                window.alert('标签名重复了');
+                state.createTagError = new Error('tag name duplicated');
+                return;
             }
             const id = createId().toString();
             state.tagList.push({id, name: name});
             store.commit('saveTags');
-            window.alert('添加成功');
         },
         saveTags(state) {
             window.localStorage.setItem('tagList', JSON.stringify(state.tagList));

@@ -49,8 +49,10 @@
         flex-direction: column-reverse;
 
         > .current {
+            max-height: 230px;
             display: flex;
             flex-wrap: wrap;
+            overflow: auto;
 
             > li {
                 $bg: #d9d9d9;
@@ -64,7 +66,7 @@
                 margin-top: 4px;
 
                 &.selected {
-                    background: darken($bg, 30%);
+                    background: #ffcc00;
                     color: white;
                 }
             }
