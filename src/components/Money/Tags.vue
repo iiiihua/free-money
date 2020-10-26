@@ -9,6 +9,7 @@
                 @click="toggle(tag)">{{tag.name}}
             </li>
         </ul>
+
     </div>
 
 </template>
@@ -18,15 +19,19 @@
     import {Component, Prop} from 'vue-property-decorator';
     import {mixins} from 'vue-class-component';
     import TagHelper from '@/mixins/TagHelper';
+
     @Component
     export default class Tags extends mixins(TagHelper) {
         selectedTags: string[] = [];
+
         get tagList() {
             return this.$store.state.tagList;
         }
+
         created() {
             this.$store.commit('fetchTags');
         }
+
         toggle(tag: string) {
             const index = this.selectedTags.indexOf(tag);
             if (index >= 0) {
@@ -47,13 +52,12 @@
         flex-grow: 1;
         display: flex;
         flex-direction: column-reverse;
-
         > .current {
-            max-height: 230px;
+            min-height: 120px;
+            max-height: 180px;
             display: flex;
             flex-wrap: wrap;
             overflow: auto;
-
             > li {
                 $bg: #d9d9d9;
                 background: #d9d9d9;
@@ -64,6 +68,8 @@
                 padding: 0 16px;
                 margin-right: 12px;
                 margin-top: 4px;
+                min-width: 29.8%;
+                text-align: center;
 
                 &.selected {
                     background: #ffcc00;
