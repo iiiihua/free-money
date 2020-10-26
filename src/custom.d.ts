@@ -2,6 +2,7 @@ type RootState = {
     recordList: RecordItem[],
     createRecordError: Error | null,
     createTagError: Error |null,
+    numberPadValue: string | null,
     tagList: Tag[],
     currentTag?: Tag
 }

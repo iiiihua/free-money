@@ -11,6 +11,7 @@ const store = new Vuex.Store({
         recordList: [],
         createRecordError: null,
         createTagError: null,
+        numberPadValue: null,
         tagList: [],
         currentTag: undefined
     } as RootState,
@@ -53,10 +54,12 @@ const store = new Vuex.Store({
             state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
         },
         createRecord(state, record: RecordItem) {
+            state.createRecordError = null;
             const record2 = clone(record);
-            record2.createdAt = new Date().toISOString();
+            record2.createdAt = record2.createdAt || new Date().toISOString();
             state.recordList.push(record2);
             store.commit('saveRecords');
+            state.createRecordError = new Error('ok');
         },
         saveRecords(state) {
             window.localStorage.setItem('recordList',
@@ -92,7 +95,7 @@ const store = new Vuex.Store({
                 store.commit('createTag', '🧧 礼金');
                 store.commit('createTag', '💳 还钱');
                 store.commit('createTag', '❤️ 捐赠');
-                store.commit('createTag', '💰 理财');
+                store.commit('createTag', '⚖️ 理财');
             }
 
         },
@@ -101,6 +104,7 @@ const store = new Vuex.Store({
             const names = state.tagList.map(item => item.name);
             if (names.indexOf(name) >= 0) {
                 state.createTagError = new Error('tag name duplicated');
+                console.log("告诉你了");
                 return;
             }
             const id = createId().toString();

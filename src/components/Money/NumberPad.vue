@@ -56,7 +56,11 @@
             const number = parseFloat(this.output);
             this.$emit('update:value', number);
             this.$emit('submit', number);
-            this.output = '0';
+            if (this.$store.state.numberPadValue){
+                this.output = '0';
+                this.$store.state.numberPadValue = null
+            }
+
         }
     }
 </script>
