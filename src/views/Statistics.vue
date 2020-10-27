@@ -1,9 +1,15 @@
 <template>
     <Layout>
         <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-        <div class="chart-wrapper" ref="chartWrapper">
-            <Chart class="chart" :options="chartOptions"/>
-        </div>
+        <template v-if="ifauto">
+            <div class="chart-wrapper" ref="chartWrapper">
+                <Chart class="chart" :options="chartOptions"/>
+            </div>
+        </template>
+        <template v-else>
+            <Chart class="chartridos" :options="x"/>
+        </template>
+        <button class="ifauto-button" @click="wantifauto">{{ifbutton}}</button>
         <ol v-if="groupedList.length>0">
             <li v-for="(group, index) in groupedList" :key="index">
                 <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
@@ -33,11 +39,14 @@
     import Chart from '@/components/Money/Chart.vue';
     import _ from 'lodash';
     import day from 'dayjs';
+    import Button from '@/components/Button.vue';
 
     @Component({
-        components: {Tabs, Chart},
+        components: {Button, Tabs, Chart},
     })
     export default class Statistics extends Vue {
+        ifauto = true
+        ifbutton = '显示饼状图'
         tagString(tags: Tag[]) {
             return tags.length === 0 ? '无' : tags.map(t => t.name).join('，');
         }
@@ -87,7 +96,60 @@
                     return -1;
                 }
             });
-            return array
+            return array;
+        }
+
+        get x() {
+            const array = this.keyValueList;
+            return {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '¥：{c} ({d}%)'
+                },
+                legend: {
+                    left: 10,
+                },
+                series: [
+                    {
+                        type: 'pie',
+                        radius: ['50%', '70%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            label: {
+                                show: true,
+                                fontSize: '20',
+                                fontWeight: 'bold'
+                            }
+                        },
+                        labelLine: {
+                            show: false
+                        },
+                        data: [
+                            {value: array[array.length - 1].value, name: array[array.length - 1].date},
+                            {value: array[array.length - 2].value, name: array[array.length - 2].date},
+                            {value: array[array.length - 3].value, name: array[array.length - 3].date},
+                            {value: array[array.length - 4].value, name: array[array.length - 4].date},
+                            {value: array[array.length - 5].value, name: array[array.length - 5].date},
+                            {value: array[array.length - 6].value, name: array[array.length - 6].date},
+                            {value: array[array.length - 7].value, name: array[array.length - 7].date},
+
+                        ]
+                    }
+                ]
+            };
+        }
+        wantifauto () {
+            this.ifauto = !this.ifauto
+            if (this.ifauto){
+                this.ifbutton = '显示饼状图'
+            }else {
+                this.ifbutton = '显示折线图'
+            }
+
 
         }
 
@@ -111,9 +173,9 @@
                     axisTick: {
                         alignWithLabel: true
                     },
-                    axisLabel:{
+                    axisLabel: {
                         formatter: function (value: string, index: number) {
-                            return value.substr(5)
+                            return value.substr(5);
 
                         }
                     }
@@ -239,5 +301,14 @@
                 display: none;
             }
         }
+    }
+    .ifauto-button{
+        border: none;
+        background: none;
+        color: #c4c4c4;
+        position: absolute;
+        right: 15px;
+        transform: translateY(-30px);
+
     }
 </style>
