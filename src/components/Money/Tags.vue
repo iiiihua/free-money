@@ -58,6 +58,9 @@
             display: flex;
             flex-wrap: wrap;
             overflow: auto;
+            &::-webkit-scrollbar{
+                display: none;
+            }
             > li {
                 $bg: #d9d9d9;
                 background: #d9d9d9;
@@ -68,7 +71,7 @@
                 padding: 0 16px;
                 margin-right: 12px;
                 margin-top: 4px;
-                min-width: 29.8%;
+                min-width: 29.83%;
                 text-align: center;
 
                 &.selected {
