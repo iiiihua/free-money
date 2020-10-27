@@ -2,7 +2,7 @@
     <Layout>
         <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
         <template v-if="ifauto">
-            <div class="chart-wrapper" ref="chartWrapper">
+            <div class="chart-wrapper" ref="chartWrapper" id="ififauto">
                 <Chart class="chart" :options="chartOptions"/>
             </div>
         </template>
@@ -31,7 +31,7 @@
 </template>
 <script lang="ts">
     import Vue from 'vue';
-    import {Component} from 'vue-property-decorator';
+    import {Component, Watch} from 'vue-property-decorator';
     import Tabs from '@/components/Tabs.vue';
     import recordTypeList from '@/constants/recordTypeList';
     import dayjs from 'dayjs';
@@ -45,17 +45,22 @@
         components: {Button, Tabs, Chart},
     })
     export default class Statistics extends Vue {
-        ifauto = true
-        ifbutton = '显示饼状图'
+        ifauto = true;
+        ifbutton = '显示饼状图';
+
         tagString(tags: Tag[]) {
             return tags.length === 0 ? '无' : tags.map(t => t.name).join('，');
         }
-
         mounted() {
             (this.$refs.chartWrapper as HTMLDivElement).scrollLeft = 9999999;
-
         }
-
+        updated(){
+            if (this.ifauto){
+                this.$nextTick(function () {
+                    (this.$refs.chartWrapper as HTMLDivElement).scrollLeft = 9999999;
+                })
+            }
+        }
         beautify(string: string) {
             const day = dayjs(string);
             const now = dayjs();
@@ -142,12 +147,13 @@
                 ]
             };
         }
-        wantifauto () {
-            this.ifauto = !this.ifauto
-            if (this.ifauto){
-                this.ifbutton = '显示饼状图'
-            }else {
-                this.ifbutton = '显示折线图'
+
+        wantifauto() {
+            this.ifauto = !this.ifauto;
+            if (this.ifauto) {
+                this.ifbutton = '显示饼状图';
+            } else {
+                this.ifbutton = '显示折线图';
             }
 
 
@@ -302,7 +308,8 @@
             }
         }
     }
-    .ifauto-button{
+
+    .ifauto-button {
         border: none;
         background: none;
         color: #c4c4c4;
