@@ -10,7 +10,7 @@
             <Chart class="chartridos" :options="x"/>
         </template>
         <button class="ifauto-button" @click="wantifauto">{{ifbutton}}</button>
-        <ol v-if="groupedList.length>0">
+        <ol v-if="groupedList.length>0" class="olheight">
             <li v-for="(group, index) in groupedList" :key="index">
                 <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
                 <ol>
@@ -317,5 +317,12 @@
         right: 15px;
         transform: translateY(-30px);
 
+    }
+    .olheight{
+        max-height: 290px;
+        overflow: auto;
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 </style>
