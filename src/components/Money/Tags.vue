@@ -53,8 +53,7 @@
         display: flex;
         flex-direction: column-reverse;
         > .current {
-            min-height: 120px;
-            max-height: 180px;
+            height: 160px;
             display: flex;
             flex-wrap: wrap;
             overflow: auto;
