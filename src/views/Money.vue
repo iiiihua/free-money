@@ -20,13 +20,6 @@
             />
         </div>
         <Tags @update:value="record.tags = $event"/>
-        <div class="gotodayPar">
-            <router-link to="/today" class="gotoday">
-                <Icon name="left" class="gotodayIcon"/>
-            </router-link>
-            <span>记一笔</span>
-        </div>
-
     </Layout>
 </template>
 
@@ -89,16 +82,6 @@
 
     .notes {
         padding: 12px 0;
-    }
-    .gotodayPar{
-        background: white;
-        span{
-            position: absolute;
-            margin-top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 22px;
-        }
     }
     .gotoday{
         width: 50px;

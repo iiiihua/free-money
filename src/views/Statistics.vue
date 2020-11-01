@@ -9,7 +9,9 @@
         <template v-else>
             <Chart class="chartridos" :options="x"/>
         </template>
-        <button class="ifauto-button" @click="wantifauto">{{ifbutton}}</button>
+        <div style="position: relative">
+            <button class="ifauto-button" @click="wantifauto">{{ifbutton}}</button>
+        </div>
         <ol v-if="groupedList.length>0" class="olheight">
             <li v-for="(group, index) in groupedList" :key="index">
                 <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
@@ -51,16 +53,19 @@
         tagString(tags: Tag[]) {
             return tags.length === 0 ? '无' : tags.map(t => t.name).join('，');
         }
+
         mounted() {
             (this.$refs.chartWrapper as HTMLDivElement).scrollLeft = 9999999;
         }
-        updated(){
-            if (this.ifauto){
+
+        updated() {
+            if (this.ifauto) {
                 this.$nextTick(function () {
                     (this.$refs.chartWrapper as HTMLDivElement).scrollLeft = 9999999;
-                })
+                });
             }
         }
+
         beautify(string: string) {
             const day = dayjs(string);
             const now = dayjs();
@@ -318,9 +323,9 @@
         transform: translateY(-30px);
 
     }
-    .olheight{
-        max-height: 290px;
-        overflow: auto;
+
+    .olheight {
+        height: 1em;
         &::-webkit-scrollbar {
             display: none;
         }

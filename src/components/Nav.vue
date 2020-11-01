@@ -2,15 +2,12 @@
     <nav class="nav">
         <router-link to="/today" class="item" active-class="selected">
             <Icon name="money"/>
-            记账
         </router-link>
         <router-link to="/labels" class="item" active-class="selected">
             <Icon name="label"/>
-            标签
         </router-link>
         <router-link to="/statistics" class="item" active-class="selected">
             <Icon name="statistics"/>
-            统计
         </router-link>
     </nav>
 
@@ -30,7 +27,7 @@
         flex-direction: row;
         font-size: 12px;
         > .item{
-            padding: 2px 0;
+            padding: 1em 0;
             width: 33.33333%;
             display: flex;
             justify-content: center;
@@ -44,8 +41,8 @@
 
         }
         >.item.selected{
-            color: $color-highlight;
-            background-color: #c0c4cc;
+            color: white;
+            background-color: #ffcc00;
         }
 
     }

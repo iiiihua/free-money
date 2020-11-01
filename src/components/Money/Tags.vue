@@ -3,12 +3,14 @@
         <div class="new">
             <button @click="createTag">新增标签</button>
         </div>
-        <ul class="current">
-            <li v-for="tag in tagList" :key="tag.id"
-                :class="{selected: selectedTags.indexOf(tag)>=0}"
-                @click="toggle(tag)">{{tag.name}}
-            </li>
-        </ul>
+        <div class="ulPress">
+            <ul class="current">
+                <li v-for="tag in tagList" :key="tag.id"
+                    :class="{selected: selectedTags.indexOf(tag)>=0}"
+                    @click="toggle(tag)">{{tag.name}}
+                </li>
+            </ul>
+        </div>
 
     </div>
 
@@ -47,19 +49,22 @@
 <style scoped lang="scss">
     .tags {
         background: white;
-        font-size: 14px;
-        padding: 16px;
+        font-size: .7em;
+        padding: 3%;
         flex-grow: 1;
         display: flex;
         flex-direction: column-reverse;
-        > .current {
-            height: 160px;
+
+        .current {
+            height: 8em;
+            width: 240%;
             display: flex;
             flex-wrap: wrap;
             overflow: auto;
-            &::-webkit-scrollbar{
+            &::-webkit-scrollbar {
                 display: none;
             }
+
             > li {
                 $bg: #d9d9d9;
                 background: #d9d9d9;
@@ -70,7 +75,6 @@
                 padding: 0 16px;
                 margin-right: 12px;
                 margin-top: 4px;
-                min-width: 29.83%;
                 text-align: center;
 
                 &.selected {
@@ -87,9 +91,15 @@
                 background: transparent;
                 border: none;
                 color: #999;
-                border-bottom: 1px solid;
+                border-bottom: 1px solid #ffcc00;
                 padding: 0 4px;
             }
+        }
+    }
+    .ulPress{
+        overflow: auto;
+        &::-webkit-scrollbar {
+            display: none;
         }
     }
 

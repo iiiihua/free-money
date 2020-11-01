@@ -1,10 +1,19 @@
 <template>
     <Layout>
-        <h1>今日流水</h1>
         <div class="main-container">
             <div class="window">
                 <div class="moon"></div>
-                <div class="star st1"></div>
+                <div class="star st1">
+                    <div class="todayOut"><span>今日支出</span>
+                        <div>{{getmoney}}</div>
+                    </div>
+                    <div class="todayIn"><span>今日收入</span>
+                        <div>{{setmoney}}</div>
+                    </div>
+                    <div class="readNote">
+                        <router-link to="/today/money">记一笔哈</router-link>
+                    </div>
+                </div>
                 <div class="star st2"></div>
                 <div class="star st3"></div>
                 <div class="star st4"></div>
@@ -24,15 +33,6 @@
                 <div class="mt5"></div>
                 <div class="mount mt6"></div>
             </div>
-        </div>
-        <div class="todayOut"><span>今日支出</span>
-            <div>{{getmoney}}</div>
-        </div>
-        <div class="todayIn"><span>今日收入</span>
-            <div>{{setmoney}}</div>
-        </div>
-        <div class="readNote">
-            <router-link to="/today/money">记一笔哈</router-link>
         </div>
     </Layout>
 </template>
@@ -71,31 +71,25 @@
 </script>
 
 <style lang="scss" scoped>
-    h1 {
-        margin-top: 20px;
-        text-align: center;
-
-    }
 
     .todayOut {
         position: absolute;
-        top: 28%;
-        left: 50%;
-        transform: translateX(-50%);
+        bottom: 200%;
+        left: 1100%;
 
         > span {
-            min-width: 100px;
+            min-width: 400%;
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 20px;
+            font-size: 1.3em;
             color: #00ffff;
             text-align: center;
         }
 
         > div {
-            padding: 10px;
-            font-size: 80px;
+            padding-top: .4em;
+            font-size: 3em;
             color: #99ccff;
         }
 
@@ -103,11 +97,11 @@
 
     .todayIn {
         position: absolute;
-        top: 45%;
-        left: 50%;
+        top: 800%;
+        left: 1450%;
 
         > span {
-            min-width: 100px;
+            min-width: 200%;
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
@@ -116,21 +110,17 @@
         }
 
         > div {
-            padding: 10px;
-            font-size: 40px;
+            padding: .2em;
+            font-size: 2.5em;
             color: #9900ff;
         }
-
-
     }
 
     .readNote {
         position: absolute;
-        bottom: 150px;
-        left: 50%;
-        transform: translateX(-50%);
+        top: 1100%;
         color: #ffcc00;
-        font-size: 20px;
+        font-size: 1.3em;
         background: transparent;
 
     }

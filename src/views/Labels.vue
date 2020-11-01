@@ -38,7 +38,7 @@
         background: white;
         font-size: 16px;
         padding-left: 16px;
-        max-height: 600px;
+        max-height: 400px;
         overflow: auto;
 
         > .tag {

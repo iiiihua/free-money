@@ -1,17 +1,19 @@
 <template>
     <div class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`">
         <div class="content" :class="classPrefix && `${classPrefix}-content`   ">
-            <slot/>
+                <slot/>
         </div>
-        <Nav/>
+        <div class="navs">
+            <Nav/>
+        </div>
     </div>
 </template>
 
 <script lang="ts">
     export default {
         props: ['classPrefix'],
-        name: "Layout"
-    }
+        name: 'Layout'
+    };
 </script>
 
 <style scoped lang="scss">
@@ -19,11 +21,13 @@
         display: flex;
         flex-direction: column;
         min-height: 100vh;
-
     }
-    .content{
+
+    .content {
         flex-grow: 1;
         overflow: auto;
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
-
 </style>

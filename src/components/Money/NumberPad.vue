@@ -1,15 +1,21 @@
 <template>
     <div class="numberPad">
-        <div class="output">{{output}}</div>
+        <div class="output">
+            <div class="gotodayPar">
+                <router-link to="/today" class="gotoday">
+                    <Icon name="left" class="gotodayIcon"/>
+                </router-link>
+            </div>
+            {{output}}</div>
         <div class="buttons">
             <button @click="inputContent">1</button>
             <button @click="inputContent">2</button>
             <button @click="inputContent">3</button>
-            <button @click="remove">删除</button>
+            <button @click="remove">delete</button>
             <button @click="inputContent">4</button>
             <button @click="inputContent">5</button>
             <button @click="inputContent">6</button>
-            <button @click="clear">清空</button>
+            <button @click="clear">clear</button>
             <button @click="inputContent">7</button>
             <button @click="inputContent">8</button>
             <button @click="inputContent">9</button>
@@ -76,14 +82,16 @@
             padding: 9px 16px;
             text-align: right;
             height: 72px;
+            position: relative;
         }
         .buttons {
             @extend %clearFix;
             > button {
+                border: white 1px solid !important;
                 width: 25%;
                 height: 64px;
                 float: left;
-                background: transparent;
+                background: #CCCCCC;
                 border: none;
                 &.ok {
                     height: 64*2px;
@@ -92,29 +100,21 @@
                 &.zero {
                     width: 25*2%;
                 }
-                $bg: #F2F2F2;
-                &:nth-child(1) {
-                    background: $bg;
+                &:nth-child(1),&:nth-child(2),&:nth-child(3),&:nth-child(4) {
+                    border-top: none !important;
                 }
-                &:nth-child(2), &:nth-child(5) {
-                    background: darken($bg, 4%);
+                &:nth-child(1),&:nth-child(5),&:nth-child(9),&:nth-child(13) {
+                    border-left: none !important;
+                }&:nth-child(4),&:nth-child(8),&:nth-child(12) {
+                    border-right: none !important;
+                }&:nth-child(12),&:nth-child(13),&:nth-child(14) {
+                    border-bottom: none !important;
                 }
-                &:nth-child(3), &:nth-child(6), &:nth-child(9) {
-                    background: darken($bg, 4*2%);
-                }
-                &:nth-child(4), &:nth-child(7), &:nth-child(10) {
-                    background: darken($bg, 4*3%);
-                }
-                &:nth-child(8), &:nth-child(11), &:nth-child(13) {
-                    background: darken($bg, 4*4%);
-                }
-                &:nth-child(14) {
-                    background: darken($bg, 4*5%);
-                }
-                &:nth-child(12) {
-                    background: darken($bg, 4*6%);
-                }
+
             }
         }
+    }
+    .gotodayPar{
+        position: absolute;
     }
 </style>
